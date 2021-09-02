@@ -15,6 +15,7 @@ class Events(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print('Bot is ready.')
+        await self.client.change_presence(activity = discord.Game('Counter Strike Global Offensive'))
         guild = self.client.get_guild(guild_id)
         roles = await guild.fetch_roles()
         print(roles)
@@ -32,10 +33,6 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self,message):
-        response = ['its over', 'its over dude', 'its beyond over', 'im blackpilled bro', 
-        'frustration and animosity', 'tfw no gf', 'no e-girlfriend', 'i hate my life bro', 
-        'im too blackpilled to do anything', 'truecel', 'ngmi', 'over before it began', 
-        'blackpilled type of night']
         if(hasattr(message.channel, 'name')):
             if message.channel.name == 'depression':
                 if message.author.bot == False:
