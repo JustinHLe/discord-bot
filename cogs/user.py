@@ -28,6 +28,18 @@ class User(commands.Cog):
             await ctx.send(f'Ping is {round(self.client.latency * 1000)}ms')
         except Exception as ex:
             print(ex)
+    
+##finish adding full audio functionality
+    @commands.command()
+    async def play(self,ctx):
+        voice_state = ctx.author.voice
+
+        if voice_state is None:
+            return await ctx.send("Enter veecee")
+        voice_channel = ctx.author.voice.channel
+        await voice_channel.connect()
+
+
 
 def setup(client):
     client.add_cog(User(client))
