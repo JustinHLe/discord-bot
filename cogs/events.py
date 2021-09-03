@@ -4,10 +4,12 @@ from discord.ext.commands.errors import CommandNotFound, MemberNotFound, Missing
 import random
 import emoji
 from discord.enums import AuditLogAction
-from data import *
+from responses import *
+from decouple import config
 
 class Events(commands.Cog):
-
+    
+    guild_id = config('GUILD_ID', cast = int)
 
     def __init__(self,client):
         self.client = client
@@ -16,9 +18,7 @@ class Events(commands.Cog):
     async def on_ready(self):
         print('Bot is ready.')
         await self.client.change_presence(activity = discord.Game('Counter Strike Global Offensive'))
-        guild = self.client.get_guild(guild_id)
-        roles = await guild.fetch_roles()
-        print(roles)
+        guild = self.client.get_guild(self.guild_id)
     
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):

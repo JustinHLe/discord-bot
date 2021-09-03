@@ -2,14 +2,15 @@ import discord
 from discord.ext import commands
 import os
 
+from decouple import config
 intents = discord.Intents.default()
 intents.members = True
 intents.bans = True
 intents.messages = True
 client = commands.Bot(command_prefix = '.', intents=intents)
 
-from data import *
 
+bot_token = config('BOT_TOKEN')
 @client.command()
 async def load(ctx,extension):
     client.load_extension(f'cogs.{extension}')
@@ -29,7 +30,6 @@ async def reload(ctx,extension):
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
-        
 
 client.run(bot_token)
 
