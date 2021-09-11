@@ -57,6 +57,7 @@ class User(commands.Cog):
             }]
         }
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+            ydl.cache.remove()
             ydl.download([url])
         for file in os.listdir("./"):
             if file.endswith('.mp3'):
