@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands 
-
+import youtube_dl
+import os 
 
 class User(commands.Cog):
     
@@ -31,13 +32,37 @@ class User(commands.Cog):
     
 ##finish adding full audio functionality
     @commands.command()
-    async def play(self,ctx):
+    async def play(self, ctx, url : str):
         voice_state = ctx.author.voice
+        channel = ctx.author.voice.channel
+        voice_channel = discord.utils.get(ctx.guild.voice_channels, name = str(channel))
 
         if voice_state is None:
             return await ctx.send("Enter veecee")
-        voice_channel = ctx.author.voice.channel
         await voice_channel.connect()
+        voice = discord.utils.get(self.client.voice_clients, guild = ctx.guild)
+        song_there = os.path.isfile("song.mp3")
+        try:
+            if song_there:
+                os.remove("song.mp3")
+        except PermissionError: 
+            await ctx.send("Wait for song to end")
+
+        ydl_opts = {
+            'format': 'bestaudio/best',
+            'postprocessors': [{
+                'key': 'FFmpegExtractAudio',
+                'preferredcodec': 'mp3',
+                'preferredquality': '192'
+            }]
+        }
+        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([url])
+        for file in os.listdir("./"):
+            if file.endswith('.mp3'):
+                os.rename(file, 'song.mp3')
+        
+        voice.play(discord.FFmpegPCMAudio("song.mp3"))
 
 
 

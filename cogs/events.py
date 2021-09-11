@@ -18,7 +18,12 @@ class Events(commands.Cog):
     async def on_ready(self):
         print('Bot is ready.')
         await self.client.change_presence(activity = discord.Game('Counter Strike Global Offensive'))
-        guild = self.client.get_guild(self.guild_id)
+        # guild = self.client.get_guild(self.guild_id)
+        # voice_channel = discord.utils.get(guild.voice_channels, name = "General")
+        # await voice_channel.connect()
+        # print(f'{type(guild)} guild')
+        # voice = discord.utils.get(self.client.voice_clients, guild = guild)
+        # print(voice)
     
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
@@ -45,7 +50,7 @@ class Events(commands.Cog):
         welcomeDM = ['hi', emoji.emojize(f'Greetings Fapstronaut \U0001F913 \U0001F596!')]
         welcomeGeneral = ['hi', 'fed', emoji.emojize(f'Greetings Fapstronaut \U0001F913 \U0001F596!')]
         await member.send(random.choice(welcomeDM))
-        role = discord.utils.get(member.guild.roles, name = 'truecels')
+        role = discord.utils.get(member.guild.roles, id = 791568276684931082)
         try: 
             await channel.send(f'{member.mention} {random.choice(welcomeGeneral)}')
             await member.add_roles(role)
@@ -60,6 +65,7 @@ class Events(commands.Cog):
         except Exception as ex:
             print(ex)
     
+
     @commands.Cog.listener()
     async def on_member_remove(self, member):
         async for entry in member.guild.audit_logs(limit=1):
@@ -71,7 +77,7 @@ class Events(commands.Cog):
                     print(ex)
 
             elif entry.action == AuditLogAction.ban and entry.target == member:
-                pass
+                return
 
             elif entry.action != AuditLogAction.kick and entry.action != AuditLogAction.ban:
                 try:

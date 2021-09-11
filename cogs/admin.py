@@ -51,15 +51,13 @@ class Admin(commands.Cog):
             except ValueError:
                 await ctx.send("Enter a number")
 
-##Finish this and add error handling
     @commands.command()
     @commands.has_permissions(administrator = True)
-    async def kick_bot(self,ctx):
-        voice_client = ctx.bot.voice_clients
-        if voice_client and voice_client.is_connected():
-            await ctx.voice_client.disconnect()
-            return
-        await ctx.send('not in vc piemp')
+    async def stop(self,ctx):
+        if(ctx.voice_client):
+            await ctx.guild.voice_client.disconnect()
+        else:
+            await ctx.send('Not in VC piemp')
 
 def setup(client):
     client.add_cog(Admin(client))
