@@ -29,7 +29,7 @@ class Events(commands.Cog):
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
         print(ctx)
-        print(error)
+        print(f'error is {error}')
         if(isinstance(error, CommandNotFound)):
             await ctx.send('erm cant find command')
         if(isinstance(error, MissingPermissions)):
