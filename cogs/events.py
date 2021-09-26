@@ -6,6 +6,7 @@ import emoji
 from discord.enums import AuditLogAction
 from responses import *
 from decouple import config
+import os
 
 class Events(commands.Cog):
     
@@ -85,6 +86,6 @@ class Events(commands.Cog):
                     await channel.send(f'erm {entry.target} has left the server.')
                 except Exception as ex:
                     print(ex)
-    
+
 def setup(client):
     client.add_cog(Events(client))
