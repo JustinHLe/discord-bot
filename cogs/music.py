@@ -90,6 +90,10 @@ class Music(commands.Cog):
     async def skip(self,ctx):
         voice = discord.utils.get(self.client.voice_clients, guild = ctx.guild)
         voice.stop()
+    @commands.command()
+    async def addfile(self,ctx):
+        with open('./test/test.txt', 'w') as f:
+            f.write("hi")
 
 
 
