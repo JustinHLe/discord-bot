@@ -19,7 +19,7 @@ class Music(commands.Cog):
             'preferredquality': '192'
         }]
     }
-    song_dir = '../songs
+    song_dir = '../songs'
     song_queue = []
     def __init__(self,client):
         self.client = client
