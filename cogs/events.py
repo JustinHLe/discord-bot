@@ -19,11 +19,13 @@ class Events(commands.Cog):
     async def on_ready(self):
         print('Bot is ready.')
         await self.client.change_presence(activity = discord.Game('Counter Strike Global Offensive'))
-        os.mkdir('./test')
-        with open('./test/test.txt', 'w') as f:
+        current_dir = (os.getcwd())
+        path = os.path.join(current_dir,'test')
+        os.mkdir(path)
+        write_to = os.path.join(path, 'test.txt')
+        with open(write_to, 'w') as f:
             f.write("hi")
             print('file created')
-        
         # guild = self.client.get_guild(self.guild_id)
         # voice_channel = discord.utils.get(guild.voice_channels, name = "General")
         # await voice_channel.connect()
