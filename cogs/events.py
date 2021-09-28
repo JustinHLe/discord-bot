@@ -22,6 +22,7 @@ class Events(commands.Cog):
         os.mkdir('./test')
         with open('./test/test.txt', 'w') as f:
             f.write("hi")
+            print('file created')
         
         # guild = self.client.get_guild(self.guild_id)
         # voice_channel = discord.utils.get(guild.voice_channels, name = "General")
