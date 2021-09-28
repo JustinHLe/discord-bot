@@ -19,8 +19,7 @@ class Music(commands.Cog):
             'preferredquality': '192'
         }]
     }
-    current_dir = (os.getcwd())
-    song_dir = path = os.path.join(current_dir,'songs')
+    song_dir = '../songs
     song_queue = []
     def __init__(self,client):
         self.client = client
