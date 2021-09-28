@@ -11,7 +11,7 @@ import re
 class Music(commands.Cog):
 
     ydl_opts = {
-        'outtmpl': '/app/songs/%(title)s-%(id)s.%(ext)s',
+        'outtmpl': '../songs/%(title)s-%(id)s.%(ext)s',
         'format': 'bestaudio/best',
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
