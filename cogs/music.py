@@ -11,7 +11,7 @@ import re
 class Music(commands.Cog):
 
     ydl_opts = {
-        'outtmpl': './songs/%(title)s-%(id)s.%(ext)s',
+        'outtmpl': '/app/songs/%(title)s-%(id)s.%(ext)s',
         'format': 'bestaudio/best',
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
@@ -19,7 +19,8 @@ class Music(commands.Cog):
             'preferredquality': '192'
         }]
     }
-    song_dir = "./songs"
+    current_dir = (os.getcwd())
+    song_dir = path = os.path.join(current_dir,'songs')
     song_queue = []
     def __init__(self,client):
         self.client = client
@@ -90,10 +91,6 @@ class Music(commands.Cog):
     async def skip(self,ctx):
         voice = discord.utils.get(self.client.voice_clients, guild = ctx.guild)
         voice.stop()
-    @commands.command()
-    async def addfile(self,ctx):
-        with open('./test/test.txt', 'w') as f:
-            f.write("hi")
 
 
 
