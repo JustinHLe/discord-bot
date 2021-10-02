@@ -31,7 +31,8 @@ class Music(commands.Cog):
             self.song_queue.clear()
     ##finish adding full audio functionality
     @commands.command()
-    async def play(self, ctx, url : str):
+    async def play(self, ctx, *, url):
+        print(url)
         parsed_url = urlparse(url)
         voice_state = ctx.author.voice
         if voice_state is None:
@@ -45,7 +46,7 @@ class Music(commands.Cog):
         for member in channel_members:
             memid.append(member.id)
         if 879825594752327690 in memid:
-            print("Bot is connected already")
+            pass;
         else:
             for file in os.listdir(self.song_dir):
                 os.remove(os.path.join(self.song_dir, file))
@@ -63,7 +64,6 @@ class Music(commands.Cog):
                 song = f'{video_title}-{video_id}.mp3'
                 self.song_queue.append(song)
         else: 
-            print('searching!')
             search_results = search(url)
             with youtube_dl.YoutubeDL(self.ydl_opts) as ydl:
                 info_dict = ydl.extract_info(search_results, download=False)
@@ -80,20 +80,19 @@ class Music(commands.Cog):
             await ctx.send("Added to queue")
     
     @commands.command()
-    @commands.has_permissions(administrator = True)
     async def stop(self,ctx):
-        if(ctx.voice_client):
-            await ctx.guild.voice_client.disconnect()
+        voice_state = ctx.author.voice
+        if voice_state is None:
+            await ctx.send("enter veecee to kick bot")
         else:
-            await ctx.send('Not in VC piemp')
+            if(ctx.voice_client):
+                await ctx.guild.voice_client.disconnect()
+            else:
+                await ctx.send('Not in VC piemp')
     @commands.command()
     async def skip(self,ctx):
         voice = discord.utils.get(self.client.voice_clients, guild = ctx.guild)
         voice.stop()
-    @commands.command()
-    async def addfile(self,ctx):
-        with open('./test/test.txt', 'w') as f:
-            f.write("hi")
 
 
 
@@ -104,7 +103,6 @@ def start_playing(self, voice, ctx):
     first_song_before_remove = self.song_queue[0]
     voice.play(discord.FFmpegPCMAudio(os.path.join(self.song_dir, first_song_before_remove)), after=lambda e : play_next(self, voice, ctx))
 def play_next(self, voice, ctx):
-    print("song finished")
     remove_song = self.song_queue[0]
     self.song_queue.pop(0)
     os.remove(os.path.join(self.song_dir, remove_song))
@@ -121,4 +119,4 @@ def search(url):
         "http://www.youtube.com/results?" + query_string
     )
     search_results = re.findall(r"watch\?v=(\S{11})", html_content.read().decode())
-    return f'https://www.youtube.com/watch?v=Ce5gXZDQ4x0{search_results[0]}'
+    return f'https://www.youtube.com/watch?v={search_results[0]}'

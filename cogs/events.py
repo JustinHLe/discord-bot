@@ -4,6 +4,7 @@ from discord.ext.commands.errors import CommandNotFound, MemberNotFound, Missing
 import random
 import emoji
 from discord.enums import AuditLogAction
+from youtube_dl.utils import DownloadError
 from responses import *
 from decouple import config
 import os
@@ -19,9 +20,6 @@ class Events(commands.Cog):
     async def on_ready(self):
         print('Bot is ready.')
         await self.client.change_presence(activity = discord.Game('Counter Strike Global Offensive'))
-        os.mkdir('./test')
-        with open('./test/test.txt', 'w') as f:
-            f.write("hi")
         
         # guild = self.client.get_guild(self.guild_id)
         # voice_channel = discord.utils.get(guild.voice_channels, name = "General")
@@ -40,20 +38,21 @@ class Events(commands.Cog):
             await ctx.send('need mawd piemp')
         if(isinstance(error, MemberNotFound)):
             await ctx.send('member not found')
+        if (isinstance(error, DownloadError)):
+            await ctx.send("erm i'm dumb and cant download try again")
 
     @commands.Cog.listener()
     async def on_message(self,message):
-        if(hasattr(message.channel, 'name')):
-            if message.channel.name == 'depression':
-                if message.author.bot == False:
-                    await message.channel.send(random.choice(response))
+        if message.channel.name == 'depression':
+            if message.author.bot == False:
+                await message.channel.send(random.choice(response))
 
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
         channel = discord.utils.get(member.guild.text_channels, name="general")
-        welcomeDM = ['hi', emoji.emojize(f'Greetings Fapstronaut \U0001F913 \U0001F596!')]
-        welcomeGeneral = ['hi', 'fed', emoji.emojize(f'Greetings Fapstronaut \U0001F913 \U0001F596!')]
+        welcomeDM = ['hi', emoji.emojize(f'Greetings! \U0001F913 \U0001F596!')]
+        welcomeGeneral = ['hi', emoji.emojize(f'Greetings!\U0001F913 \U0001F596!')]
         await member.send(random.choice(welcomeDM))
         role = discord.utils.get(member.guild.roles, id = 791568276684931082)
         try: 
@@ -87,7 +86,7 @@ class Events(commands.Cog):
             elif entry.action != AuditLogAction.kick and entry.action != AuditLogAction.ban:
                 try:
                     channel = discord.utils.get(member.guild.text_channels, name="general")
-                    await channel.send(f'erm {entry.target} has left the server.')
+                    await channel.send(f'erm {member} has left the server.')
                 except Exception as ex:
                     print(ex)
 
