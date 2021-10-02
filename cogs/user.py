@@ -29,7 +29,7 @@ class User(commands.Cog):
             await ctx.send(f'Ping is {round(self.client.latency * 1000)}ms')
         except Exception as ex:
             print(ex)
-    
+
 
 
 
