@@ -11,7 +11,7 @@ import re
 class Music(commands.Cog):
 
     ydl_opts = {
-        'outtmpl': './songs/%(title)s-%(id)s.%(ext)s',
+        'outtmpl': '../songs/%(title)s-%(id)s.%(ext)s',
         'format': 'bestaudio/best',
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
@@ -19,7 +19,7 @@ class Music(commands.Cog):
             'preferredquality': '192'
         }]
     }
-    song_dir = "./songs"
+    song_dir = '../songs'
     song_queue = []
     def __init__(self,client):
         self.client = client
