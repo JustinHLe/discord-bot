@@ -5,14 +5,13 @@ import random
 import emoji
 from discord.enums import AuditLogAction
 from youtube_dl.utils import DownloadError
-from responses import *
 from decouple import config
+from responses import *
 import os
 
 class Events(commands.Cog):
     
     guild_id = config('GUILD_ID', cast = int)
-
     def __init__(self,client):
         self.client = client
 
