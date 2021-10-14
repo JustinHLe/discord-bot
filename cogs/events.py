@@ -35,7 +35,7 @@ class Events(commands.Cog):
         if(isinstance(error, CommandNotFound)):
             await ctx.send('erm cant find command')
         if(isinstance(error, MissingPermissions)):
-            await ctx.send('need mawd piemp')
+            await ctx.send('need mawd')
         if(isinstance(error, MemberNotFound)):
             await ctx.send('member not found')
         if (isinstance(error, DownloadError)):
@@ -43,9 +43,12 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self,message):
-        if message.channel.name == 'depression':
-            if message.author.bot == False:
-                await message.channel.send(random.choice(response))
+        if self.guild_id == 791558656809369630:
+            if message.channel.id == 879850982845063299:
+                if message.author.bot == False:
+                    await message.channel.send(random.choice(response))
+        else: 
+            return;
 
 
     @commands.Cog.listener()
@@ -65,7 +68,7 @@ class Events(commands.Cog):
     async def on_member_ban(self, guild, user):
         channel = discord.utils.get(guild.text_channels, name="general")
         try:
-            await channel.send(f'{user} is banned. Welcome to ban world piemp.')
+            await channel.send(f'{user} is banned. Welcome to ban world.')
         except Exception as ex:
             print(ex)
     

@@ -14,13 +14,13 @@ class Admin(commands.Cog):
             await member.send('Hi imposter')
             await member.kick(reason=reason)
         except Exception as e:
-            print("Kick Error" + e)
+            print(e)
 
     @commands.command()
     @commands.has_permissions(administrator = True)
     async def ban(self, ctx, member : discord.Member, *, reason=None):
         try:
-            await member.send('Welcome to ban world piemp')
+            await member.send('Welcome to ban world')
             await member.ban(reason=reason)
         except Exception as e:
             print("Ban Error" + e)

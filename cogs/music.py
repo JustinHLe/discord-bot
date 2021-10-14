@@ -87,7 +87,7 @@ class Music(commands.Cog):
             if(ctx.voice_client):
                 await ctx.guild.voice_client.disconnect()
             else:
-                await ctx.send('Not in VC piemp')
+                await ctx.send('Not in VC')
     @commands.command()
     async def skip(self,ctx):
         voice = discord.utils.get(self.client.voice_clients, guild = ctx.guild)
